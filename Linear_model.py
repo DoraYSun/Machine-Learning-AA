@@ -1,9 +1,6 @@
 #%%
-import numpy as np
 from AADatabase import AADatabase
 from sklearn.linear_model import LinearRegression
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import r2_score, mean_absolute_error, mean_squared_error
 
 
@@ -24,11 +21,11 @@ class LinearRegressionModel():
 
     
     def evaluate_linear_regression_model(self):
-      
-        y_test_pred = self.regr.fit(self.X_test, self.y_test).predict(self.X_test)
-        linear_regression_model_MAE = mean_absolute_error(self.y_test, y_test_pred)
-        linear_regression_model_MSE = mean_squared_error(self.y_test, y_test_pred)
-        linear_regression_model_R2 = r2_score(self.y_test, y_test_pred)
+        """reflect how well linear regression model performs on validationset"""
+        y_val_pred = self.regr.fit(self.X_validation, self.y_validation).predict(self.X_validation)
+        linear_regression_model_MAE = mean_absolute_error(self.y_validation, y_val_pred)
+        linear_regression_model_MSE = mean_squared_error(self.y_validation, y_val_pred)
+        linear_regression_model_R2 = r2_score(self.y_validation, y_val_pred)
         print("MAE of linear regression model is : ", linear_regression_model_MAE)
         print("MSE of linear regression model is : ", linear_regression_model_MSE)
         print("R2 Score of linear regression model is : ", linear_regression_model_R2)
