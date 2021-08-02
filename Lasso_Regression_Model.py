@@ -18,9 +18,9 @@ class LassoRegressionModel():
     def _lasso_regression_hyperparameters_turning(self):
         """turning hyperparameters of lasso regression model for best performance"""
         start_time = time.time()
-        l1_parameters = {'alpha': [0.001, 0.1, 1, 10, 100, 1000, 10000, 100000, 100000],
+        l1_parameters = [{'alpha': [0.001, 0.1, 1, 10, 100, 1000, 10000, 100000, 100000],
                         'normalize':[True,False]
-                        }
+                        }]
         
         l1_grid = GridSearchCV(estimator=self.l1, param_grid = l1_parameters)
         l1_grid.fit(self.X_validation, self.y_validation)

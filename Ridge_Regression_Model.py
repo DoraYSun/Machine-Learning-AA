@@ -18,9 +18,9 @@ class RidgeRegressionModel():
     def _ridge_regression_hyperparameters_turning(self):
         """turning hyperparameters of ridge regression model for best performance"""
         start_time = time.time()
-        l2_parameters = {'alpha': [0.001, 0.1, 1, 10, 100, 1000, 10000, 100000, 100000],
+        l2_parameters = [{'alpha': [0.001, 0.1, 1, 10, 100, 1000, 10000, 100000, 100000],
                         'normalize':[True,False]
-                        }
+                        }]
         
         l2_grid = GridSearchCV(estimator=self.l2, param_grid = l2_parameters)
         l2_grid.fit(self.X_validation, self.y_validation)
