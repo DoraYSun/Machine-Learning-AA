@@ -9,6 +9,7 @@ from sklearn.metrics import r2_score
 
 # %%
 class LinearRegressionModel():
+    """find the best fit linear regression model for AA dataset, return fitting time, best hyperparameters, R2 scores on train/validation/test sets"""
 
     def __init__(self):
         """split data into train, validation, test sets"""
@@ -32,7 +33,7 @@ class LinearRegressionModel():
         self.output['best_params'] = self.best_params
     
     def evaluate_linear_regression_model(self):
-        """fit training data into linear regression model and reflect how well linear regression model performs on validationset"""
+        """fit training data into linear regression model and reflect how well linear regression model performs on validation set"""
         self._linear_regression_hyperparameters_turning()
         lr_best = LinearRegression(fit_intercept=self.best_params['fit_intercept'], normalize=self.best_params['normalize'])
         y_train_pred = lr_best.fit(self.X_train, self.y_train).predict(self.X_train)
@@ -47,7 +48,7 @@ class LinearRegressionModel():
         return self.output
 
 # %%
-model_1 = LinearRegressionModel()
+model_lr = LinearRegressionModel()
 # model_1.fit_linear_regression_model()
-model_1.evaluate_linear_regression_model()
+model_lr.evaluate_linear_regression_model()
 # %%
