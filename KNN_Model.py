@@ -6,7 +6,7 @@ from sklearn.metrics import r2_score
 
 # %%
 class KNNModel():
-    """add l2 regularisation on linear regression, return fitting time, best hyperparameters, R2 scores on train/validation/test sets  """
+    """find the best fit KNN model, return fitting time, best hyperparameters, R2 scores on train/validation/test sets  """
 
     def __init__(self):
         """split data into train, validation, test sets"""
@@ -16,11 +16,11 @@ class KNNModel():
         
 
     def _KNN_hyperparameters_turning(self):
-        """turning hyperparameters of ridge regression model for best performance"""
+        """turning hyperparameters of KNN for best performance"""
         start_time = time.time()
-        knn_parameters = [{'n_neighbors': list(range(1, 30)),
+        knn_parameters = {'n_neighbors': list(range(1, 30)),
                         'weights':['uniform', 'distance']
-                        }]
+                        }
         
         knn_grid = GridSearchCV(estimator=self.knn, param_grid = knn_parameters)
         knn_grid.fit(self.X_validation, self.y_validation)
@@ -30,7 +30,7 @@ class KNNModel():
         self.output['best_params'] = self.best_params
     
     def evaluate_KNN_model(self):
-        """fit training data into ridge regression model and reflect how well lasso regression model performs on validation set"""
+        """fit training data into ridge regression model and reflect how well KNN model performs on validation set"""
         self._KNN_hyperparameters_turning()
         knn_best = KNeighborsRegressor(n_neighbors=self.best_params['n_neighbors'], weights=self.best_params['weights'])
         y_train_pred = knn_best.fit(self.X_train, self.y_train).predict(self.X_train)
