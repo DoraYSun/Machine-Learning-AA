@@ -4,7 +4,7 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import r2_score
 
-# %%
+
 class DecisionTreeModel():
     """find the best fit Decision Tree model return fitting time, best hyperparameters, R2 scores on train/validation/test sets"""
 
@@ -13,10 +13,12 @@ class DecisionTreeModel():
         self.X_train, self.X_test, self.X_validation, self.y_train, self.y_test, self.y_validation = AADatabase().split_data(standardize_features=True)
         self.dt = DecisionTreeRegressor()
         self.output = {'model':'Decision Tree'}
+        self._evaluate_decision_tree_model()
+        
         
 
-    def _Decision_Tree_hyperparameters_turning(self):
-        """turning hyperparameters of Decision Tree model for best performance"""
+    def _decision_tree_hyperparameters_tuning(self):
+        """tuning hyperparameters of Decision Tree model for best performance"""
         start_time = time.time()
         dt_parameters = {'splitter': ('best', 'random'),
                          'max_depth' : [1, 3, 5, 7, 9, 11, 12]
@@ -26,13 +28,13 @@ class DecisionTreeModel():
         dt_grid.fit(self.X_validation, self.y_validation)
         self.best_params = dt_grid.best_params_
         end_time = time.time()
-        self.output['time'] = end_time - start_time
+        self.output['time'] = end_time - start_time # time for finding the best model
         self.output['best_params'] = self.best_params
     
-    def evaluate_Decision_Tree_model(self):
+    def _evaluate_decision_tree_model(self):
         """fit training data into Decision Tree model and reflect how well lasso regression model performs on validation set"""
-        self._Decision_Tree_hyperparameters_turning()
-        dt_best = DecisionTreeRegressor(splitter=self.best_params['splitter'], max_depth=self.best_params['max_depth'])
+        self._decision_tree_hyperparameters_tuning()
+        dt_best = DecisionTreeRegressor(splitter=self.best_params['splitter'], max_depth=self.best_params['max_depth']) # use best hyperparameters from tuning
         y_train_pred = dt_best.fit(self.X_train, self.y_train).predict(self.X_train)
         y_val_pred = dt_best.fit(self.X_validation, self.y_validation).predict(self.X_validation)
         y_test_pred = dt_best.fit(self.X_test, self.y_test).predict(self.X_test)
@@ -44,8 +46,3 @@ class DecisionTreeModel():
         self.output['test_score'] = dt_test_R2
         return self.output
     
-# %%
-model_dt = DecisionTreeModel()
-# model_1.fit_linear_regression_model()
-model_dt.evaluate_Decision_Tree_model()
-# %%
