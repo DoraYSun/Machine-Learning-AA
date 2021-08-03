@@ -12,7 +12,7 @@ from sklearn.linear_model import Ridge
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.tree import DecisionTreeRegressor
 from sklearn import svm
-from sklearn.externals import joblib
+import joblib
 # %%
 class ModelSelector():
     """find best model for AAdatabase to predict price and save the model"""
