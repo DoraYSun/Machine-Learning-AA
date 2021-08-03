@@ -6,7 +6,7 @@ The objective of this project is to deliver a model which can predict used car p
 
 2. Data
 
-Data source in this project is from developer's last project as AA_Datapipeline, which is originally collected from the used car trading company's website 'AA.com'. The data cleaning process includes dealing with missing values and feature engineering. Certain features are reclassified/removed based on domine expertise. Data has been split into train, test, val; standardised without data leakage; random seed is applied for repeatability.
+Data source in this project is from developer's last project as AA_Datapipeline, which is originally collected from the used car trading company's website 'AA.com'. The data cleaning process includes dealing with missing values and feature engineering. Certain features are reclassified/removed based on domain expertise. Data has been split into train, test, val; standardised without data leakage; random seed is applied for repeatability.
 
 
 3. Modelling
